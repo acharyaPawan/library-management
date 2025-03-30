@@ -1,3 +1,14 @@
 from django.db import models
 
-# Create your models here.
+class Book(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('borrowed', 'Borrowed'),
+    ]
+
+    name = models.CharField(max_length=255)
+    book_id = models.CharField(max_length=50, unique=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='available')
+
+    def __str__(self):
+        return self.name
