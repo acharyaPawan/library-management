@@ -16,16 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth.decorators import login_required
+from django.urls import re_path
 
 urlpatterns = [
-    path('', include('dashboard.urls')),
-    path('dashboard/', include('dashboard.urls')),
     path('admin/', admin.site.urls),
-    path('books/', include('books.urls')),
-    path('students/', include('students.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('books/', include('books.urls')),
+    path('students/', include('students.urls')),
     path('borrow/', include('borrow.urls')),
-    path('', include('dashboard.urls'))
-
+    # re_path(r'^', login_required(include([
+    #     path('', include('dashboard.urls')),
+    #     path('dashboard/', include('dashboard.urls')),
+    #     path('books/', include('books.urls')),
+    #     path('students/', include('students.urls')),
+    #     path('borrow/', include('borrow.urls')),
+    # ]))),
 ]

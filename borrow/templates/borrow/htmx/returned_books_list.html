@@ -1,0 +1,13 @@
+{% for book in returned_books %}
+<tr id="book-{{ book.id }}">
+<td>{{ forloop.counter }}</td>
+<td>{{ book.name }}</td>
+<td>{{ book.book_id }}</td>
+<td>{{ book.borrowed_date }}</td>
+<td>{{ book.return_date }}</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="4">No previous history.</td>
+</tr>
+{% endfor %}

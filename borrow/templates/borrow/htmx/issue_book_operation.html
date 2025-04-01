@@ -1,0 +1,25 @@
+{% if success %}
+<div id="success-message" class="message success" hx-swap-oob="true" style="display: block;">
+{{ success }}
+</div>
+<table>
+  <tbody id="available-books-list" hx-swap-oob="true" hx-get="{% url 'available_books' %}" hx-trigger="load" hx-swap="innerHTML">
+    <!-- Available books will be dynamically added here -->
+  </tbody>
+  </table>
+  <table>
+  <tbody id="issued-books-list"  hx-swap-oob="true" hx-get="{% url 'issued_books' %}" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+    <!-- Available books will be dynamically added here -->
+  </tbody>
+  </table>
+  <table>
+    <tbody id="returned-books-list" hx-swap-oob="true"  hx-get="{% url 'returned_books' %}" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+      <!-- Returned books will be dynamically added here -->
+    </tbody>
+  </table>
+{% endif %}
+{% if error %}
+<div id="error-message" class="message error" hx-swap-oob="true" style="display: block;">
+{{ error }}
+</div>
+{% endif %}

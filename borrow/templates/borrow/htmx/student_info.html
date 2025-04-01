@@ -1,0 +1,36 @@
+<div>
+  {% if student %}
+    <label for="student-name">Student Name:</label>
+    <input type="text" id="student-name" value="{{ student.name }}" disabled>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" value="{{ student.date_of_birth|date:'Y-m-d' }}" disabled>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" value="{{ student.address }}" disabled>
+
+    <div id="messages">
+      <div id="success-message" class="message success" hx-swap-oob="true" style="display: block;">
+        Student information loaded successfully.
+      </div>
+    </div>
+
+    <table class="books-table">
+      <tbody id="issued-books-list" hx-swap-oob="true" hx-get="{% url 'issued_books' %}" hx-swap-oob="true" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+        <!-- Issued books will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <table class="books-table">
+      <tbody id="returned-books-list" hx-swap-oob="true" hx-get="{% url 'return_book' %}" hx-swap-oob="true" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+        <!-- Issued books will be dynamically added here -->
+      </tbody>
+    </table>
+
+  {% else %}
+  <div id="messages" hx-swap-oob="true">
+    <div id="success-message" class="message success"  style="display: none;"></div>
+    <div id="error-message" class="message error" style="display: block;">Failed to load student information.</div>
+  </div>
+  {% endif %}
+</div>

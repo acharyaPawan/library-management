@@ -1,16 +1,35 @@
 from django.shortcuts import render, redirect
 from .models import Book
+from .form import AddNewBookForm, RemoveBookForm
 
 def book_list(request):
     books = Book.objects.all()
-    print("I am here")
     return render(request, 'books/books.html', {'books': books})
 
 def add_book(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        book_id = request.POST.get('book_id')
-        Book.objects.create(name=name, book_id=book_id)
-        return redirect('book_list')
+        form = AddNewBookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+        else:
+            return render(request, 'books/add_book.html', {'form': form})
+    else:
+        form = AddNewBookForm()
+    return render(request, 'books/add_book.html', {'form': form})
 
-    return render(request, 'books/add_book.html')
+
+def remove_book(request):
+    if request.method == 'POST':
+        form = RemoveBookForm(request.POST)
+        if form.is_valid():
+            book_id = form.cleaned_data['book_id']
+            try:
+                book = Book.objects.get(book_id=book_id)
+                book.delete()  # Remove the book from the database
+                return redirect('book_list')  # Redirect to a success page
+            except Book.DoesNotExist:
+                form.add_error('book_id', 'Book not found')  # Add an error to the form
+    else:
+        form = RemoveBookForm()
+    return render(request, 'books/remove_book.html', {'form': form})

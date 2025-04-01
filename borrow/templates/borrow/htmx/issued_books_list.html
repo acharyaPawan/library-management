@@ -1,0 +1,24 @@
+{% for borrowed_book in borrowed_books %}
+<tr id="borrowed-book-{{ borrowed_book.id }}">
+  <td>{{ forloop.counter }}</td>
+  <td>{{ borrowed_book.book.name }}</td>
+  <td>{{ borrowed_book.book.book_id }}</td>
+  <td>{{ borrowed_book.borrowed_date }}</td>
+  <td>{{ borrowed_book.return_date }}</td>
+  <td>
+    <button
+      class="return-btn"
+      hx-post="{% url 'return_book' %}"
+      hx-vals='{"student_id": "{{ student_id }}", "borrowed_book_id": "{{ borrowed_book.book.book_id }}"}'
+      {% comment %} hx-include="#student-id" {% endcomment %}
+      hx-swap="none"
+    >
+      Return Book
+    </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="5">No borrowed books at the moment.</td>
+</tr>
+{% endfor %}

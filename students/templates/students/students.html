@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extend-head %}
+<link rel="stylesheet" href="{% static '/students/css/students.css' %}">
+{% endblock extend-head %}
+{% block app-content %}
+<section class="students-section">
+    <h2>Students</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>S.N.</th>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="student-list">
+            {% for student in students %}
+            <tr id="student-{{ student.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.student_id }}</td>
+                <td>{{ student.date_of_birth }}</td>
+                <td>{{ student.address }}</td>
+                <td>
+                    {% comment %} <button class="edit-btn" hx-get="{% url 'students:edit_student' student.id %}" hx-target="#student-{{ student.id }}" hx-swap="innerHTML">Edit</button> {% endcomment %}
+                    <button class="delete-btn" hx-delete="{% url 'delete_student' student.student_id %}" hx-target="tbody tr#student-{{ student.id }}" hx-swap="delete">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+            <!-- Student rows will be added dynamically -->
+        </tbody>
+    </table>
+    <button class="add-student-btn" onclick="window.location.href='{% url 'add_student' %}'">Add Student</button>
+</section>
+{% endblock app-content %}

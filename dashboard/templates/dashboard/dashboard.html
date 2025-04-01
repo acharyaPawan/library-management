@@ -1,56 +1,28 @@
+{% extends "base.html" %}
 {% load static %}
-{% comment %} <h1>Dashboard</h1>
-<p>Total Books: {{ total_books }}</p>
-<p>Borrowed Books: {{ borrowed_books }}</p>
-<p>Returned Books: {{ returned_books }}</p> {% endcomment %}
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Dashboard</title>
+{% block extend-head %}
     <link rel="stylesheet" href="{% static '/dashboard/css/dashboard.css' %}">
-</head>
-<body>
-    <div class="dashboard-container">
-        <aside class="sidebar">
-            <h2>Library Management</h2>
-            <ul>
-                <li><a href="#" class="home-btn">Home</a></li>
-                <li><a href="students.html">Students</a></li>
-                <li><a href="#">User</a></li>
-            </ul>
-        </aside>
-        <main class="main-content">
-            <header>
-                <h1>Library Management System</h1>
-                <form action="{% url "logout" %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>  
-                </form>
-            </header>
-            <section class="stats">
-                <div class="stat-card">
-                    <h3>Books</h3>
-                    <p id="book-count">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Borrowed Books</h3>
-                    <p id="borrowed-count">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Returned Books</h3>
-                    <p id="returned-count">0</p>
-                </div>
-            </section>
-            <section class="issue-section">
-                <button class="issue-btn">Issue Book</button>
-            </section>
-        </main>
+{% endblock extend-head %}
+{% block app-content %}
+<section class="stats">
+    <div class="stat-card">
+        <h3>Books</h3>
+        <p id="book-count">{{ total_books }}</p>
     </div>
-    <script src="{% static '/dashboard/js/dashboard.js' %}"></script>
-</body>
-</html>
+    <div class="stat-card">
+        <h3>Available Books(In the self)</h3>
+        <p id="returned-count">{{ available_books }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>Borrowed Books</h3>
+        <p id="borrowed-count">{{ borrowed_books }}</p>
+    </div>
+
+</section>
+<section class="issue-section">
+    <button class="issue-btn" onClick="window.location.href='/borrow/issue'">Issue Book</button>
+</section>
+
+
+{% endblock app-content %}

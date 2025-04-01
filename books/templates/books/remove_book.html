@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% load static %}
 
-{% block title %}Add Book{% endblock title %}
+{% block title %}Remove Book{% endblock title %}
 {% block extend-head %}
 <link rel="stylesheet" type="text/css" href="{% static '/books/css/add_book.css' %}">
 {% endblock extend-head %}
@@ -10,10 +10,10 @@
 <section class="add-book-section">
   <h2>Add Book</h2>
   <button class="back-btn" onClick="window.location.href='/books';">Back</button>
-  <form method="post" action="{% url 'add_book' %}">
+  <form method="post" action="{% url 'remove_book' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Add Book</button>
+    <button type="submit" class="btn btn-primary">Remove Book</button>
   </form>
 </section>
 {% endblock app-content %}

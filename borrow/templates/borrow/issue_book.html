@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Issue Books{% endblock %}
+{% block extend-head %}
+<link rel="stylesheet" href="{% static '/borrow/css/issue_book.css' %}">
+{% endblock extend-head %}
+
+{% block app-content %}
+<section class="issue-books-section">
+  <h2>Issue Books</h2>
+
+  <!-- Success and Error Messages -->
+  <div id="messages">
+    <div id="success-message" class="message success"  style="display: none;"></div>
+    <div id="error-message" class="message error" style="display: none;"></div>
+  </div>
+
+  <div class="student-details">
+    <label for="student-id">Student ID:</label>
+    <input type="text" id="student-id" name="student_id" placeholder="Enter Student ID">
+    <button id="check-student-btn" hx-post="{% url 'check_student' %}" hx-include="#student-id" hx-target="#student-info" hx-swap="innerHTML">Check Student ID</button>
+  </div>
+
+  <div id="student-info" class="student-info">
+    <label for="student-name">Student Name:</label>
+    <input type="text" id="student-name" disabled>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" disabled>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" disabled>
+  </div>
+
+  <!-- Available Books Table -->
+  <h3>Available Books</h3>
+  <table class="books-table">
+    <thead>
+      <tr>
+        <th>S.N.</th>
+        <th>Book Name</th>
+        <th>Book ID</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="available-books-list" hx-get="{% url 'available_books' %}" hx-trigger="load" hx-swap="innerHTML">
+      <!-- Available books will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <!-- Issued Books Table -->
+  <h3>Issued Books</h3>
+  <table class="books-table">
+    <thead>
+      <tr>
+        <th>S.N.</th>
+        <th>Book Name</th>
+        <th>Book ID</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="issued-books-list" hx-get="{% url 'issued_books' %}" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+      <!-- Issued books will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <!-- History of Returned Books Table -->
+   <h3>History of Returned Books</h3>
+  <table class="books-table">
+    <thead>
+      <tr>
+        <th>S.N.</th>
+        <th>Book Name</th>
+        <th>Book ID</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+      </tr>
+    </thead>
+    <tbody id="returned-books-list" hx-get="{% url 'returned_books' %}" hx-include="input#student_id" hx-trigger="load" hx-swap="innerHTML">
+      <!-- Returned books will be dynamically added here -->
+    </tbody>
+  </table>
+
+</section>
+<script>
+  // Listen for the htmx:afterSwap event
+  document.body.addEventListener('htmx:afterSwap', function (event) {
+      // Check if the replaced element is the one you want to act on
+      if (event.target.id === 'success-message' || event.target.id === 'error-message') {
+          // Disable the element after 3 seconds
+          const childrens = document.getElementById('messages').children;
+          
+          setTimeout(() => {
+            console.log("here")
+              for (let i = 0; i < childrens.length; i++) {
+              childrens[i].style.display = 'none'; // Hide all messages
+              }
+          }, 3000); // 3000ms = 3 seconds
+      }
+  });
+</script>
+{% endblock %}
