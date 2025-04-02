@@ -11,7 +11,7 @@
   <h2>Issue Books</h2>
 
   <!-- Success and Error Messages -->
-  <div id="messages">
+  <div id="messages" style="position: sticky; top: 20px; z-index: 1000; max-width: 420px; width: 100%; margin: 0 auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <div id="success-message" class="message success"  style="display: none;"></div>
     <div id="error-message" class="message error" style="display: none;"></div>
   </div>
@@ -58,7 +58,7 @@
         <th>Book Name</th>
         <th>Book ID</th>
         <th>Borrow Date</th>
-        <th>Return Date</th>
+        <th>Deadline:</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -79,7 +79,7 @@
         <th>Return Date</th>
       </tr>
     </thead>
-    <tbody id="returned-books-list" hx-get="{% url 'returned_books' %}" hx-include="input#student_id" hx-trigger="load" hx-swap="innerHTML">
+    <tbody id="returned-books-list" hx-get="{% url 'returned_books' %}" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
       <!-- Returned books will be dynamically added here -->
     </tbody>
   </table>

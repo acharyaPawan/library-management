@@ -24,15 +24,20 @@ def add_student(request):
     return render(request, 'students/add_student.html')
 
 @csrf_exempt
-def delete_student(request, student_id):
+def delete_student(request):
+    student_id = request.GET.get('student_id')
+    print("student_id", student_id)
+    if not student_id:
+        raise ValueError("Student ID is required")
     try:
         student = Student.objects.get(student_id=student_id)
         
         # Make borrowed books available
-        borrowed_books = BorrowedBook.objects.filter(student=student, return_date__gt= now().date())
+        borrowed_books = BorrowedBook.objects.filter(student=student, return_date__gt = now())
+        print(borrowed_books)
         for book in borrowed_books:
-            book.status = 'available'  # Assuming 'available' is the status for available books
-            book.save()
+            book.book.status = 'available'  # Assuming 'available' is the status for available books
+            book.book.save()
         
         student.delete()
         print(f"Student {student.name} and their borrowed books are updated successfully.")

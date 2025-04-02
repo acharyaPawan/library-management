@@ -12,3 +12,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        # Custom logic (if any)
+        super().save(*args, **kwargs)  # Ensure the instance is saved

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from books.models import Book
 from borrow.models import BorrowedBook
 from django.contrib.auth.decorators import login_required
@@ -19,3 +19,18 @@ def dashboard_view(request):
     print('available_books:', available_books)
     print('borrowed_books:', borrowed_books)
     return render(request, 'dashboard/dashboard.html', context)
+
+
+common_timezones = {
+    'London': 'Europe/London',
+    'Paris': 'Europe/Paris',
+    'New York': 'America/New_York',
+    'Katmandu': 'Asia/Katmandu',
+}
+
+def set_timezone(request):
+    if request.method == 'POST':
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
+    else:
+        return render(request, 'dashboard/template.html', {'timezones': common_timezones})

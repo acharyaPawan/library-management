@@ -86,9 +86,9 @@ def get_issued_books(request):
     student_id = request.GET.get('student_id')
     print("student_id", student_id)
     if student_id:
-        borrowed_books = BorrowedBook.objects.filter(return_date__gt=now().date(), student__student_id=student_id)
+        borrowed_books = BorrowedBook.objects.filter(return_date__gt=now(), student__student_id=student_id).order_by('-borrowed_date')
     else:
-        borrowed_books = BorrowedBook.objects.all().filter(return_date__gt = now().date())
+        borrowed_books = BorrowedBook.objects.all().filter(return_date__gt = now()).order_by('-borrowed_date')
     print("here",borrowed_books)
     return render(request, 'borrow/htmx/issued_books_list.html', {'borrowed_books': borrowed_books, 'student_id': student_id})
 
@@ -96,9 +96,10 @@ def get_issued_books(request):
 def get_returned_books(request):
     student_id = request.GET.get('student_id')
     if not student_id:
-        returned_books = BorrowedBook.objects.filter(return_date__lt=now().date())
+        returned_books = BorrowedBook.objects.filter(return_date__lt=now()).order_by('-return_date').order_by('-return_date')
         # return render(request, 'borrow/htmx/handle_error.html', {'error': 'Student ID is required'})
-    returned_books = BorrowedBook.objects.filter(student__student_id=student_id, return_date__lt=now().date())
+    else:
+        returned_books = BorrowedBook.objects.filter(student__student_id=student_id, return_date__lt=now()).order_by('-return_date')
     return render(request, 'borrow/htmx/returned_books_list.html', {'returned_books': returned_books})
 
 

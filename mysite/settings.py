@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-     'books',
+    'books',
     'students',
     'borrow',
     'accounts',
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'dashboard.middleware.ProtectPathMiddleware',  # Custom middleware to protect paths
+    'borrow.middleware.TimezoneMiddleware',  # Custom middleware to set timezone
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -116,7 +117,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = True 
 
 
 # Static files (CSS, JavaScript, Images)

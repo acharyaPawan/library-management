@@ -22,7 +22,7 @@
     </table>
 
     <table class="books-table">
-      <tbody id="returned-books-list" hx-swap-oob="true" hx-get="{% url 'return_book' %}" hx-swap-oob="true" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
+      <tbody id="returned-books-list" hx-swap-oob="true" hx-get="{% url 'returned_books' %}" hx-swap-oob="true" hx-include="[name='student_id']" hx-trigger="load" hx-swap="innerHTML">
         <!-- Issued books will be dynamically added here -->
       </tbody>
     </table>

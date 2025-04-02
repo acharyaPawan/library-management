@@ -27,7 +27,7 @@
                 <td>{{ student.address }}</td>
                 <td>
                     {% comment %} <button class="edit-btn" hx-get="{% url 'students:edit_student' student.id %}" hx-target="#student-{{ student.id }}" hx-swap="innerHTML">Edit</button> {% endcomment %}
-                    <button class="delete-btn" hx-delete="{% url 'delete_student' student.student_id %}" hx-target="tbody tr#student-{{ student.id }}" hx-swap="delete">Delete</button>
+                    <button class="delete-btn" hx-delete="{% url 'delete_student' %}" hx-vals='{"student_id": "{{ student.student_id }}"}' hx-target="tbody tr#student-{{ student.id }}" hx-swap="delete">Delete</button>
                 </td>
             </tr>
             {% endfor %}

@@ -1,8 +1,8 @@
 {% for book in returned_books %}
-<tr id="book-{{ book.id }}">
+<tr id="book-{{ book.book.book_id }}">
 <td>{{ forloop.counter }}</td>
-<td>{{ book.name }}</td>
-<td>{{ book.book_id }}</td>
+<td>{{ book.book.name }}</td>
+<td>{{ book.book.book_id }}</td>
 <td>{{ book.borrowed_date }}</td>
 <td>{{ book.return_date }}</td>
 </tr>
