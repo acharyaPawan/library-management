@@ -15,7 +15,7 @@ db.sqlite3
 *.log
 media/
 staticfiles/
-# static/
+# static/ # Static files now include css and js files
 local_settings.py
 .env
 *.env
