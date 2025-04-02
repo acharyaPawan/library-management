@@ -96,7 +96,7 @@ def get_issued_books(request):
 def get_returned_books(request):
     student_id = request.GET.get('student_id')
     if not student_id:
-        returned_books = BorrowedBook.objects.filter(return_date__lt=now()).order_by('-return_date').order_by('-return_date')
+        returned_books = BorrowedBook.objects.filter(return_date__lt=now()).order_by('-return_date')
         # return render(request, 'borrow/htmx/handle_error.html', {'error': 'Student ID is required'})
     else:
         returned_books = BorrowedBook.objects.filter(student__student_id=student_id, return_date__lt=now()).order_by('-return_date')
@@ -117,7 +117,7 @@ def return_book(request):
         borrowed_book = BorrowedBook.objects.get(book__book_id = borrowed_book_id, return_date__gt=now().date())
         print("borrowed_book", borrowed_book)
         
-        borrowed_book.return_date = now().date()
+        borrowed_book.return_date = now()
         borrowed_book.book.status = 'available'
         borrowed_book.book.save()
         borrowed_book.save()
