@@ -1,0 +1,81 @@
+
+/* Container for the form section */
+.add-student-section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: max-content;
+  margin-inline: auto;
+  background-color: #ffffff;
+  padding: 30px;
+  padding-inline: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Title */
+.add-student-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Styling for the form elements */
+.add-student-section .form-group {
+    margin-bottom: 20px;
+}
+
+.add-student-section label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.add-student-section input,
+.add-student-section textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.add-student-section input:focus,
+.add-student-section textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button styling */
+.add-student-section button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-student-section button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .add-student-section {
+        padding: 20px;
+    }
+    .add-student-section h2 {
+        font-size: 1.5rem;
+    }
+}

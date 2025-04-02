@@ -1,0 +1,55 @@
+/* Student Management Section */
+.students-section {
+  margin-top: 20px;
+}
+
+.students-section h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #17293b;
+  color: white;
+}
+
+.add-student-btn {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 15px;
+  background: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-student-btn:hover {
+  background: #4cae4c;
+}
+
+/* Remove Button */
+.remove-btn {
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.remove-btn:hover {
+  background-color: #d32f2f; /* Darker Red */
+}
