@@ -1,5 +1,13 @@
+
 {% load tz %}
+{% load static %}
 {% get_current_timezone as TIME_ZONE %}
+{% block extend-head %}
+<link rel="stylesheet" href="{% static '/dashboard/css/timestamp.css' %}">
+{% endblock extend-head %}
+
+{% block app-content %}
+<h1>Set Time Zone</h1>
 <form action="{% url 'set_timezone' %}" method="POST">
     {% csrf_token %}
     <label for="timezone">Time zone:</label>
@@ -10,3 +18,4 @@
     </select>
     <input type="submit" value="Set">
 </form>
+{% endblock app-content %}

@@ -11,5 +11,5 @@ class TimezoneMiddleware:
         if tzname:
             timezone.activate(zoneinfo.ZoneInfo(tzname))
         else:
-            timezone.deactivate()
+            timezone.activate(zoneinfo.ZoneInfo('Asia/Kathmandu'))  # Default to Nepal timezone
         return self.get_response(request)
