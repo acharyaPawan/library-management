@@ -1,6 +1,13 @@
+{% load static %}
+<head>
+    <title>SignUp to Library Management Dashboard</title>
+    <link rel="stylesheet" href="{% static '/accounts/css/signup.css' %}">
+</head>
+<body>
 <h1>SignUp</h1>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">SignUp</button>
 </form>
+</body>

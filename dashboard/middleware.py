@@ -7,7 +7,7 @@ class ProtectPathMiddleware:
     self.get_response = get_response
 
   def __call__(self, request):
-    unprotected_routes = ['login', 'register', 'logout']
+    unprotected_routes = ['login', 'register', 'logout', 'account', 'signup' ]
     current_route = resolve(request.path_info).url_name
 
     if current_route not in unprotected_routes and not request.user.is_authenticated:
