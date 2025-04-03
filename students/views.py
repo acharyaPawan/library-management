@@ -4,6 +4,7 @@ from .models import Student
 from borrow.models import BorrowedBook
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.timezone import now
+from .form import StudentForm
 
 @csrf_exempt
 def student_list(request):
@@ -14,24 +15,21 @@ def student_list(request):
 @csrf_exempt
 def add_student(request):
     if request.method == 'POST':
-        student_id = request.POST.get('student_id')
-        name = request.POST.get('name')
-        date_of_birth = request.POST.get('date_of_birth')
-        address = request.POST.get('address')
-        
-        try:
-            if Student.objects.filter(student_id=student_id).exists():
-                error_message = f"Student with ID {student_id} already exists."
-                print(error_message)
-                return render(request, 'students/add_student.html', {'error': error_message})
-            
-            Student.objects.create(student_id=student_id, name=name, date_of_birth=date_of_birth, address=address)
-            print(f"Student {name} added successfully.")
-        except Exception as e:
-            print(f"Error adding student: {e}")
-            return render(request, 'students/add_student.html', {'error': "An Unexpected error occurred."})
-        return redirect('student_list')
-    return render(request, 'students/add_student.html')
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                print(f"Student {form.cleaned_data['name']} added successfully.")
+                return redirect('student_list')
+            except Exception as e:
+                print(f"Error adding student: {e}")
+                return render(request, 'students/add_student.html', {'form': form, 'error': "An unexpected error occurred."})
+        else:
+            print("Form validation failed.")
+            return render(request, 'students/add_student.html', {'form': form})
+    else:
+        form = StudentForm()
+    return render(request, 'students/add_student.html', {'form': form})
 
 @csrf_exempt
 def delete_student(request):
