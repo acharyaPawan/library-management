@@ -19,7 +19,7 @@
   <div class="student-details">
     <label for="student-id">Student ID:</label>
     <input type="text" id="student-id" name="student_id" placeholder="Enter Student ID">
-    <button id="check-student-btn" hx-post="{% url 'check_student' %}" hx-include="#student-id" hx-target="#student-info" hx-swap="innerHTML">Check Student ID</button>
+    <button id="check-student-btn" hx-post="{% url 'check_student' %}" hx-include="#student-id" hx-swap="none">Check Student ID</button>
   </div>
 
   <div id="student-info" class="student-info">

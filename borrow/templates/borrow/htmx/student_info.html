@@ -13,6 +13,7 @@
       <div id="success-message" class="message success" hx-swap-oob="true" style="display: block;">
         Student information loaded successfully.
       </div>
+      <div id="error-message" class="message error" style="display: none;"  hx-swap-oob="true"></div>
     </div>
 
     <table class="books-table">
@@ -28,9 +29,9 @@
     </table>
 
   {% else %}
-  <div id="messages" hx-swap-oob="true">
-    <div id="success-message" class="message success"  style="display: none;"></div>
-    <div id="error-message" class="message error" style="display: block;">Failed to load student information.</div>
+  <div id="messages">
+    <div id="success-message" class="message success"  style="display: none;" hx-swap-oob="true"></div>
+    <div id="error-message" class="message error" style="display: block;"  hx-swap-oob="true">Failed to load student information.</div>
   </div>
   {% endif %}
 </div>

@@ -114,7 +114,7 @@ def return_book(request):
     if not student_id:
         return render(request, 'borrow/htmx/return_book_operation.html', {'error': 'Student ID is missing.'})
     try:
-        borrowed_book = BorrowedBook.objects.get(book__book_id = borrowed_book_id, return_date__gt=now().date())
+        borrowed_book = BorrowedBook.objects.get(book__book_id = borrowed_book_id, student__student_id = student_id, return_date__gt=now())
         print("borrowed_book", borrowed_book)
         
         borrowed_book.return_date = now()
